@@ -9,15 +9,32 @@
         android:id="@+id/nav_upcoming_games"
         android:name="com.example.individualassignment.fragments.UpcomingGamesFragment"
         android:label="Upcoming Games"
-        tools:layout="@layout/fragment_upcoming_games" />
+        tools:layout="@layout/fragment_upcoming_games" >
+        <action
+            android:id="@+id/action_nav_upcoming_games_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_popular_games"
         android:name="com.example.individualassignment.fragments.PopularGamesFragment"
         android:label="Popular Games"
-        tools:layout="@layout/fragment_popular_games" />
+        tools:layout="@layout/fragment_popular_games" >
+        <action
+            android:id="@+id/action_nav_popular_games_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_buy_list"
         android:name="com.example.individualassignment.fragments.BuyListFragment"
         android:label="Buy-List"
-        tools:layout="@layout/fragment_buy_list" />
+        tools:layout="@layout/fragment_buy_list" >
+        <action
+            android:id="@+id/action_nav_buy_list_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameDetailFragment"
+        android:name="com.example.individualassignment.GameDetailFragment"
+        android:label="fragment_game_detail"
+        tools:layout="@layout/fragment_game_detail" />
 </navigation>
