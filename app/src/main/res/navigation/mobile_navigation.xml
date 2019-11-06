@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameDetailFragment"
-        android:name="com.example.individualassignment.GameDetailFragment"
+        android:name="com.example.individualassignment.fragments.GameDetailFragment"
         android:label="fragment_game_detail"
         tools:layout="@layout/fragment_game_detail" />
 </navigation>
