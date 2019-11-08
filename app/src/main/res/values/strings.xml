@@ -11,6 +11,31 @@
     <string name="item_game_banner_title">Game Title</string>
     <string name="item_game_banner_release_date">Release date</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!--gamedetail strings -->
+    <string name="game_detail_description">Description</string>
+    <string name="game_detail_images">Images</string>
+    <string name="game_detail_platforms">Platforms</string>
+    <string name="game_detail_buy_button">Buy now</string>
+    <string name="game_detail_game_title">Game title</string>
+    <string name="game_detail_game_release_date">Releases %s</string>
+    <string name="game_detail_game_rating">%d</string>
+    <string name="game_detail_switch">Switch</string>
+    <string name="game_detail_playstation">PS4</string>
+    <string name="game_detail_windows">Windows</string>
+    <string name="game_detail_xbox">Xbox One</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+    </string>
+
 </resources>

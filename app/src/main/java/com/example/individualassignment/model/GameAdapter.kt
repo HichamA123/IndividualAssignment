@@ -1,6 +1,7 @@
 package com.example.individualassignment.model
 
 import android.content.Context
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,11 +38,14 @@ class GameAdapter(private val games: List<Game>, private val onClick: (Game) -> 
             }
         }
         fun bind(game: Game) {
+            //todo fix loading circles
+//            itemView.pbGame.visibility = View.VISIBLE
             Glide.with(context).load(game.background_image).into(itemView.ivPoster)
             if (game.name.length > maxLengthOfTitle) itemView.tvTitle.text = game.name.substring(0, maxLengthOfTitle) + "..."
             else itemView.tvTitle.text = game.name
 
             itemView.tvReleaseDate.text = game.released.substring(0, 4)
+//            itemView.pbGame.visibility = View.INVISIBLE
             gameNum++
         }
     }

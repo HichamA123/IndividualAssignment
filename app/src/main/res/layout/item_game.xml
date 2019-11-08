@@ -9,12 +9,11 @@
         android:id="@+id/ivPoster"
         android:layout_width="200dp"
         android:layout_height="290dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/colorPrimary" />
@@ -24,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/game_title_shadow"
-        android:fontFamily="@font/roboto_thin"
+        android:fontFamily="sans-serif"
         android:padding="8dp"
         android:text="@string/item_game_banner_title"
         android:textAlignment="textStart"
@@ -39,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/game_title_shadow"
-        android:fontFamily="@font/roboto_thin"
+        android:fontFamily="sans-serif"
         android:padding="8dp"
         android:text="@string/item_game_banner_release_date"
         android:textAlignment="textEnd"
@@ -47,4 +46,21 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
         app:layout_constraintEnd_toEndOf="@+id/ivPoster" />
+
+    <ProgressBar
+        android:id="@+id/pbGame"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorAccent"
+        android:progressTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/ivPoster"
+        app:layout_constraintEnd_toEndOf="@+id/ivPoster"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="@+id/ivPoster"
+        app:layout_constraintTop_toTopOf="@+id/ivPoster"
+        app:layout_constraintVertical_bias="0.491"
+        app:layout_constraintWidth_percent="0.20" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
