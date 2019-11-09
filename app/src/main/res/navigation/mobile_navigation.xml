@@ -35,8 +35,8 @@
     <fragment
         android:id="@+id/gameDetailFragment"
         android:name="com.example.individualassignment.fragments.GameDetailFragment"
-        android:label="fragment_game_detail"
-        tools:layout="@layout/fragment_game_detail" >
+        android:label="Game"
+        tools:layout="@layout/fragment_game_detail">
         <argument
             android:name="game"
             app:argType="com.example.individualassignment.model.Game" />

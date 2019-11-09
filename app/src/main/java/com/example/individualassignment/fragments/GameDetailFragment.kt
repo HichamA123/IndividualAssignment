@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -20,6 +23,9 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.example.individualassignment.R
+import com.example.individualassignment.fragments.viewmodels.UGFViewModel
+import com.example.individualassignment.model.Game
+import kotlinx.android.synthetic.main.content_game_detail.*
 import kotlinx.android.synthetic.main.fragment_game_detail.*
 
 
@@ -29,6 +35,10 @@ import kotlinx.android.synthetic.main.fragment_game_detail.*
 class GameDetailFragment : Fragment() {
 
     private val args: GameDetailFragmentArgs by navArgs()
+    private val BITMAP_SCALE = 1.2f
+    private val BLUR_RADIUS = 18.5f
+    private lateinit var viewModel: UGFViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +50,10 @@ class GameDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.initView()
+    }
 
+    private fun initView() {
         pbGame.visibility = View.VISIBLE
 
         Glide.with(this)
@@ -83,13 +96,34 @@ class GameDetailFragment : Fragment() {
 
         }).into(ivPoster)
 
-//        tvDescription.text =
-
-
+        initViewModels()
     }
 
-    private val BITMAP_SCALE = 1.2f
-    private val BLUR_RADIUS = 18.5f
+    private fun initViewModels() {
+        viewModel = ViewModelProviders.of(this).get(UGFViewModel::class.java)
+
+        viewModel.getGameDetails(args.game.id)
+
+        viewModel.detailedGame.observe(this, Observer {
+            this.setGameContent(it)
+        })
+
+        viewModel.error.observe(this, Observer {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        })
+    }
+
+    private fun setGameContent(game: Game) {
+        tvDescription.text = game.description_raw
+        tvTitle.text = game.name
+        tvReleaseDate.text = getString(R.string.game_detail_game_release_date, game.released)
+
+        tvRating.text = getString(R.string.game_detail_game_rating, game.rating)
+        //todo fix ratingbar
+//        ratingBar.rating = game.rating.toFloat()
+        //todo setplatforms, set screenshots
+
+    }
 
     fun blur(image: Bitmap): Bitmap {
         val width = Math.round(image.width * BITMAP_SCALE)

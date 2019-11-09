@@ -10,7 +10,7 @@ data class Game (
     var released: String,
     var background_image: String,
     var background_image_additional: String,
-    var description: String,
+    var description_raw: String,
     var rating: Int,
     var platforms: ArrayList<Platform>
 ): Parcelable {
