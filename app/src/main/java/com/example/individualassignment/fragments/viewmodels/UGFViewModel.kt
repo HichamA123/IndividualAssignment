@@ -30,8 +30,6 @@ class UGFViewModel(application: Application): AndroidViewModel(application) {
                 // puts the results in an array of type game
                 val games = GsonBuilder().create().fromJson(results,Array<Game>::class.java).toList()
 
-                getGameDetails(games[0].id)
-
                 if (response.isSuccessful) this@UGFViewModel.games.value = games
                 else error.value = "An error occured: ${response.errorBody().toString()}"
             }
@@ -47,8 +45,6 @@ class UGFViewModel(application: Application): AndroidViewModel(application) {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val results = response.body()
-                // puts the results in an array of type game
-
                 val detailedGame = GsonBuilder().create().fromJson(results,Game::class.java)
 
                 if (response.isSuccessful) this@UGFViewModel.detailedGame.value = detailedGame
@@ -66,7 +62,7 @@ class UGFViewModel(application: Application): AndroidViewModel(application) {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val results = response.body()?.get("results")
-                // puts the results in an array of type game
+
                 val screenshots = GsonBuilder().create().fromJson(results,Array<Screenshot>::class.java).toList()
 
                 if (response.isSuccessful) this@UGFViewModel.screenshots.value = screenshots
