@@ -1,12 +1,16 @@
 package com.example.individualassignment.model
 
 import android.content.Context
-import android.opengl.Visibility
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.individualassignment.R
 import kotlinx.android.synthetic.main.item_game.view.*
 
@@ -38,14 +42,35 @@ class GameAdapter(private val games: List<Game>, private val onClick: (Game) -> 
             }
         }
         fun bind(game: Game) {
-            //todo fix loading circles
-//            itemView.pbGame.visibility = View.VISIBLE
-            Glide.with(context).load(game.background_image).into(itemView.ivPoster)
+            itemView.pbGame.visibility = View.VISIBLE
+            Glide.with(context).load(game.background_image).listener(object: RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    itemView.pbGame.visibility = View.GONE
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    itemView.pbGame.visibility = View.GONE
+                    return false
+                }
+
+            }).into(itemView.ivPoster)
+
             if (game.name.length > maxLengthOfTitle) itemView.tvTitle.text = game.name.substring(0, maxLengthOfTitle) + "..."
             else itemView.tvTitle.text = game.name
 
             itemView.tvReleaseDate.text = game.released.substring(0, 4)
-//            itemView.pbGame.visibility = View.INVISIBLE
             gameNum++
         }
     }

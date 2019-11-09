@@ -10,7 +10,10 @@ data class Game (
     var name: String,
     var released: String,
     var background_image: String,
-    var rating: Int
+    var background_image_additional: String,
+    var description: String,
+    var rating: Int,
+    var platforms: ArrayList<Platform>
 ): Parcelable {
     //functions to get for example the YT video or game posters
 }

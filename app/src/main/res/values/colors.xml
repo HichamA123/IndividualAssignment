@@ -6,4 +6,5 @@
     <color name="colorBackground">#232324</color>
     <color name="colorShadowEnd">#E6000000</color>
     <color name="colorShadowCenter">#B3000000</color>
+    <color name="light_grey">#d9d9d9</color>
 </resources>

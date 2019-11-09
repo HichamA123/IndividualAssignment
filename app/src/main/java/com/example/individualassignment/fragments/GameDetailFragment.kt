@@ -14,7 +14,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
 import com.example.individualassignment.R
 import kotlinx.android.synthetic.main.fragment_game_detail.*
 
@@ -37,6 +41,8 @@ class GameDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        pbGame.visibility = View.VISIBLE
+
         Glide.with(this)
             .asBitmap()
             .load(args.game.background_image)
@@ -53,7 +59,29 @@ class GameDetailFragment : Fragment() {
                 }
             })
 
-        Glide.with(this).load(args.game.background_image).into(ivPoster)
+        Glide.with(this).load(args.game.background_image).listener(object: RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                pbGame.visibility = View.GONE
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                pbGame.visibility = View.GONE
+                return false
+            }
+
+        }).into(ivPoster)
 
 //        tvDescription.text =
 
