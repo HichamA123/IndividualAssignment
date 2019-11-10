@@ -18,7 +18,6 @@
     <string name="game_detail_buy_button">Buy now</string>
     <string name="game_detail_game_title">Game title</string>
     <string name="game_detail_game_release_date">Releases %s</string>
-    <string name="game_detail_game_rating">%d</string>
     <string name="game_detail_switch">Switch</string>
     <string name="game_detail_playstation">PS4</string>
     <string name="game_detail_windows">Windows</string>

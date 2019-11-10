@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".fragments.GameDetailFragment"
-    tools:showIn="@layout/fragment_game_detail">
+    tools:context=".fragments.GameDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -21,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/ivImages"
+            app:layout_constraintTop_toBottomOf="@+id/imageSlider"
             app:srcCompat="@drawable/rectangle_color_dark_purple" />
 
         <TextView
@@ -96,15 +95,29 @@
             android:textColor="@android:color/white"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        <ImageView
-            android:id="@+id/ivImages"
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/imageSlider"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="240dp"
             android:layout_marginTop="16dp"
+            android:background="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7"
-            app:srcCompat="@color/colorPrimaryDark" />
+            app:sliderAnimationDuration="400"
+            app:sliderAutoCycleDirection="right"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderCircularHandlerEnabled="true"
+            app:sliderIndicatorAnimationDuration="300"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="2dp"
+            app:sliderIndicatorRadius="1dp"
+            app:sliderIndicatorSelectedColor="@color/colorPrimaryDark"
+            app:sliderIndicatorUnselectedColor="@android:color/white"
+            app:sliderScrollTimeInSec="5"
+            app:sliderStartAutoCycle="true" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -122,10 +135,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/roboto_thin"
+                android:fontFamily="sans-serif"
                 android:text="@string/game_detail_switch"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/white"
+                android:textColor="@color/dark_grey"
                 app:layout_constraintEnd_toEndOf="@+id/ivSwitch"
                 app:layout_constraintStart_toStartOf="@+id/ivSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/ivSwitch" />
@@ -135,10 +148,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/roboto_thin"
+                android:fontFamily="sans-serif"
                 android:text="@string/game_detail_playstation"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/white"
+                android:textColor="@color/dark_grey"
                 app:layout_constraintEnd_toEndOf="@+id/ivPlaystation"
                 app:layout_constraintStart_toStartOf="@+id/ivPlaystation"
                 app:layout_constraintTop_toBottomOf="@+id/ivPlaystation" />
@@ -148,10 +161,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/roboto_thin"
+                android:fontFamily="sans-serif"
                 android:text="@string/game_detail_windows"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/white"
+                android:textColor="@color/dark_grey"
                 app:layout_constraintEnd_toEndOf="@+id/ivWindows"
                 app:layout_constraintStart_toStartOf="@+id/ivWindows"
                 app:layout_constraintTop_toBottomOf="@+id/ivWindows" />
@@ -161,10 +174,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/roboto_thin"
+                android:fontFamily="sans-serif"
                 android:text="@string/game_detail_xbox"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/white"
+                android:textColor="@color/dark_grey"
                 app:layout_constraintEnd_toEndOf="@+id/ivXbox"
                 app:layout_constraintStart_toStartOf="@+id/ivXbox"
                 app:layout_constraintTop_toBottomOf="@+id/ivXbox" />
@@ -173,17 +186,18 @@
                 android:id="@+id/ivSwitch"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/ic_switch"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_switch_grey"
                 android:scaleType="center"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivWindows"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/ic_windows"
+                android:background="@drawable/ic_windows_grey"
                 app:layout_constraintStart_toEndOf="@+id/ivPlaystation"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -193,7 +207,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/ic_xbox"
+                android:background="@drawable/ic_xbox_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ivWindows"
@@ -204,7 +218,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/ic_playstation"
+                android:background="@drawable/ic_playstation_grey"
                 app:layout_constraintStart_toEndOf="@+id/ivSwitch"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

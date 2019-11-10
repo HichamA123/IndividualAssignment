@@ -82,29 +82,30 @@
 
                         <TextView
                             android:id="@+id/tvRating"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="16dp"
                             android:fontFamily="sans-serif"
-                            android:text="@string/game_detail_game_rating"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:text="4.0"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@android:color/white"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate" />
+                            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+                            app:layout_constraintStart_toEndOf="@+id/ratingBar" />
 
                         <RatingBar
                             android:id="@+id/ratingBar"
                             style="@style/Widget.AppCompat.RatingBar.Small"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:max="5"
                             android:numStars="5"
-                            app:layout_constraintBottom_toBottomOf="@+id/tvRating"
-                            app:layout_constraintStart_toEndOf="@+id/tvRating"
-                            app:layout_constraintTop_toTopOf="@+id/tvRating" />
+                            android:progressTint="@android:color/white"
+                            android:stepSize="0.1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/tvReleaseDate"
+                            app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate" />
 
                         <Button
                             android:id="@+id/btnBuy"
