@@ -184,9 +184,9 @@
 
             <ImageView
                 android:id="@+id/ivSwitch"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
                 android:background="@drawable/ic_switch_grey"
                 android:scaleType="center"
                 app:layout_constraintStart_toStartOf="parent"
@@ -194,19 +194,19 @@
 
             <ImageView
                 android:id="@+id/ivWindows"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
                 android:background="@drawable/ic_windows_grey"
                 app:layout_constraintStart_toEndOf="@+id/ivPlaystation"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivXbox"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
                 android:background="@drawable/ic_xbox_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -215,9 +215,9 @@
 
             <ImageView
                 android:id="@+id/ivPlaystation"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
                 android:background="@drawable/ic_playstation_grey"
                 app:layout_constraintStart_toEndOf="@+id/ivSwitch"
                 app:layout_constraintTop_toTopOf="parent" />
