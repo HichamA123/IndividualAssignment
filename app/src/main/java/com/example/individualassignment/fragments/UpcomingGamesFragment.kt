@@ -87,7 +87,7 @@ class UpcomingGamesFragment : Fragment() {
         return when (item.itemId) {
 
             R.id.action_deselect -> {
-                Snackbar.make(view!!, "Cleared selected", Snackbar.LENGTH_LONG)
+                Snackbar.make(view!!, "Cleared selected games", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
                 gamesAdapter.deselectAll()
                 true
@@ -102,7 +102,6 @@ class UpcomingGamesFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         gamesAdapter.selectMode.observe(this, Observer {
-            println("FRFERFERFGER")
             val deselect = menu.findItem(R.id.action_deselect)
             val search = menu.findItem(R.id.action_search)
 
