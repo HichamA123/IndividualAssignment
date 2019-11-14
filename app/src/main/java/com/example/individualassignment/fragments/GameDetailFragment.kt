@@ -1,25 +1,15 @@
 package com.example.individualassignment.fragments
 
 
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.renderscript.Allocation
-import android.renderscript.Element
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat
-import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
@@ -29,9 +19,9 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
+import com.example.individualassignment.Functions
 import com.example.individualassignment.R
 import com.example.individualassignment.fragments.viewmodels.UGFViewModel
-import com.example.individualassignment.model.Game
 import com.example.individualassignment.model.ScreenShotSliderAdapter
 import com.example.individualassignment.model.Screenshot
 import com.smarteist.autoimageslider.IndicatorAnimations
@@ -46,8 +36,6 @@ import kotlinx.android.synthetic.main.fragment_game_detail.*
 class GameDetailFragment : Fragment() {
 
     private val args: GameDetailFragmentArgs by navArgs()
-    private val BITMAP_SCALE = 1.2f
-    private val BLUR_RADIUS = 18.5f
     private lateinit var viewModel: UGFViewModel
     private val screenshots = arrayListOf<Screenshot>()
     private val screenshotSliderAdapter = ScreenShotSliderAdapter(screenshots)
@@ -148,9 +136,9 @@ class GameDetailFragment : Fragment() {
         Glide.with(this)
             .asBitmap()
             .load(args.game.background_image)
-            .into(object : CustomTarget<Bitmap>(1980, 1080){
+            .into(object : CustomTarget<Bitmap>(1980, 1080) {
                 override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
-                    val blurredBitmap = blur(resource)
+                    val blurredBitmap = Functions().blur(resource, context, false)
                     ivBackground.setImageBitmap(blurredBitmap)
                 }
                 override fun onLoadCleared(placeholder: Drawable?) {
@@ -185,25 +173,5 @@ class GameDetailFragment : Fragment() {
 
         }).into(ivPoster)
     }
-
-    fun blur(image: Bitmap): Bitmap {
-        val width = Math.round(image.width * BITMAP_SCALE)
-        val height = Math.round(image.height * BITMAP_SCALE)
-
-        val inputBitmap = Bitmap.createScaledBitmap(image, width, height, false)
-        val outputBitmap = Bitmap.createBitmap(inputBitmap)
-
-        val rs = RenderScript.create(context)
-        val theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs))
-        val tmpIn = Allocation.createFromBitmap(rs, inputBitmap)
-        val tmpOut = Allocation.createFromBitmap(rs, outputBitmap)
-        theIntrinsic.setRadius(BLUR_RADIUS)
-        theIntrinsic.setInput(tmpIn)
-        theIntrinsic.forEach(tmpOut)
-        tmpOut.copyTo(outputBitmap)
-
-        return outputBitmap
-    }
-
 
 }

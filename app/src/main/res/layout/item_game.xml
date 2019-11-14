@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="2dp">
 
     <ImageView
         android:id="@+id/ivPoster"
         android:layout_width="200dp"
         android:layout_height="290dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="2dp"
+        android:clickable="true"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,5 +63,32 @@
         app:layout_constraintTop_toTopOf="@+id/ivPoster"
         app:layout_constraintVertical_bias="0.491"
         app:layout_constraintWidth_percent="0.20" />
+
+    <ImageView
+        android:id="@+id/ivBlurryTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@id/ivPoster"
+        app:layout_constraintEnd_toEndOf="@id/ivPoster"
+        app:layout_constraintStart_toStartOf="@id/ivPoster"
+        app:layout_constraintTop_toTopOf="@id/ivPoster"
+        app:srcCompat="@android:color/transparent" />
+
+    <ImageView
+        android:id="@+id/checkSymbol"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/ivPoster"
+        app:layout_constraintEnd_toEndOf="@id/ivPoster"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/ivPoster"
+        app:layout_constraintTop_toTopOf="@id/ivPoster"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintWidth_percent="0.5"
+        app:srcCompat="@drawable/ic_check_white_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

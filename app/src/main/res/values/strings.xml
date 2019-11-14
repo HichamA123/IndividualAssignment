@@ -8,6 +8,7 @@
     <string name="menu_popular_games">Popular Games</string>
     <string name="menu_buy_list">Buy-List</string>
     <string name="toolbar_search">Search</string>
+    <string name="toolbar_deselect">Deselect</string>
     <string name="item_game_banner_title">Game Title</string>
     <string name="item_game_banner_release_date">Release date</string>
 
