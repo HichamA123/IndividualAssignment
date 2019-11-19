@@ -1,4 +1,4 @@
-package com.example.individualassignment.fragments.viewmodels
+package com.example.individualassignment.fragments
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UGFViewModel(application: Application): AndroidViewModel(application) {
+class ViewModel(application: Application): AndroidViewModel(application) {
     private val gamesRepository = GamesRepository()
 
     val games = MutableLiveData<List<Game>>()
@@ -30,7 +30,7 @@ class UGFViewModel(application: Application): AndroidViewModel(application) {
                 // puts the results in an array of type game
                 val games = GsonBuilder().create().fromJson(results,Array<Game>::class.java).toList()
 
-                if (response.isSuccessful) this@UGFViewModel.games.value = games
+                if (response.isSuccessful) this@ViewModel.games.value = games
                 else error.value = "An error occured: ${response.errorBody().toString()}"
             }
 
@@ -47,7 +47,7 @@ class UGFViewModel(application: Application): AndroidViewModel(application) {
                 val results = response.body()
                 val detailedGame = GsonBuilder().create().fromJson(results,Game::class.java)
 
-                if (response.isSuccessful) this@UGFViewModel.detailedGame.value = detailedGame
+                if (response.isSuccessful) this@ViewModel.detailedGame.value = detailedGame
                 else error.value = "An error occured: ${response.errorBody().toString()}"
             }
 
@@ -65,7 +65,7 @@ class UGFViewModel(application: Application): AndroidViewModel(application) {
 
                 val screenshots = GsonBuilder().create().fromJson(results,Array<Screenshot>::class.java).toList()
 
-                if (response.isSuccessful) this@UGFViewModel.screenshots.value = screenshots
+                if (response.isSuccessful) this@ViewModel.screenshots.value = screenshots
                 else error.value = "An error occured: ${response.errorBody().toString()}"
             }
 

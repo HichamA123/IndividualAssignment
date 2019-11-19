@@ -18,7 +18,7 @@ import com.example.individualassignment.Functions
 import com.example.individualassignment.R
 import kotlinx.android.synthetic.main.item_game.view.*
 
-class GameAdapter(private val games: List<Game>, private val onClick: (Game) -> Unit):
+class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
     RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -113,6 +113,7 @@ class GameAdapter(private val games: List<Game>, private val onClick: (Game) -> 
         games.forEach{ game ->
             if (game.selected) {
                 selectedHolders.forEach { holder ->
+                    //TODO do proper check
                     if(holder.itemView.tvTitle.text.substring(0,5) == game.name.substring(0,5)) {
                         deselectGame(game, holder, false)
                     }

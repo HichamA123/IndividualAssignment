@@ -6,6 +6,10 @@ import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Functions {
 
@@ -31,5 +35,42 @@ class Functions {
         tmpOut.copyTo(outputBitmap)
 
         return outputBitmap
+    }
+
+    fun getLastYear(): ArrayList<String> {
+        val curDate = Calendar.getInstance().time
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val cal = Calendar.getInstance()
+
+        try {
+            cal.setTime(curDate)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        val endDate = sdf.format(cal.time).toString()
+
+        cal.add(Calendar.YEAR, -1)
+        val startDate = sdf.format(cal.time).toString()
+
+        return arrayListOf(startDate, endDate)
+    }
+    fun getComingTwoYears(): ArrayList<String> {
+        val curDate = Calendar.getInstance().time
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val cal = Calendar.getInstance()
+
+        try {
+            cal.setTime(curDate)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        val startDate = sdf.format(cal.time).toString()
+
+        cal.add(Calendar.YEAR, 2)
+        val endDate = sdf.format(cal.time).toString()
+
+        return arrayListOf(startDate, endDate)
     }
 }

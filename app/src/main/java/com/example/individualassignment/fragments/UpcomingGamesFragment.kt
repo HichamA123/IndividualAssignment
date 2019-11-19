@@ -1,8 +1,6 @@
 package com.example.individualassignment.fragments
 
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -12,23 +10,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.Target
 import com.example.individualassignment.Functions
 import com.example.individualassignment.R
-import com.example.individualassignment.fragments.viewmodels.UGFViewModel
 import com.example.individualassignment.model.Game
 import com.example.individualassignment.model.GameAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_upcoming_games.*
-import kotlinx.android.synthetic.main.item_game.view.*
 
-
-const val GAME = "GAME"
 
 /**
  * A simple [Fragment] subclass.
@@ -40,7 +29,7 @@ class UpcomingGamesFragment : Fragment() {
         startDetailActivity(game)
     }
 
-    private lateinit var viewModel: UGFViewModel
+    private lateinit var viewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +47,30 @@ class UpcomingGamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setFab(view)
+
         initView()
         initViewModels()
+    }
+
+    private fun setFab(view: View) {
+        val fab: FloatingActionButton = view.findViewById(R.id.save)
+        fab.setOnClickListener {
+
+            if (gamesAdapter.selectMode.value == true) {
+                for (game in gamesAdapter.games) {
+                    if (game.selected) {
+                        //TODO save games
+                        println(game.name)
+                    }
+                }
+                gamesAdapter.deselectAll()
+                Snackbar.make(view, "Saved selected game(s).", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(view, "Please select some games you want to save.", Snackbar.LENGTH_LONG).show()
+            }
+
+        }
     }
 
     private fun initView() {
@@ -68,9 +79,11 @@ class UpcomingGamesFragment : Fragment() {
     }
 
     private fun initViewModels() {
-        viewModel = ViewModelProviders.of(this).get(UGFViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
 
-        viewModel.getGames("2019-10-10,2020-10-10", "-added")
+        val dates = Functions().getComingTwoYears()
+
+        viewModel.getGames(dates[0] + "," + dates[1], "-added")
 
         viewModel.games.observe(this, Observer {
             games.clear()
@@ -87,8 +100,7 @@ class UpcomingGamesFragment : Fragment() {
         return when (item.itemId) {
 
             R.id.action_deselect -> {
-                Snackbar.make(view!!, "Cleared selected games", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                Snackbar.make(view!!, "Cleared selected games.", Snackbar.LENGTH_LONG).show()
                 gamesAdapter.deselectAll()
                 true
             }

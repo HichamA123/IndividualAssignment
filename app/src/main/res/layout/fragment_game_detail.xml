@@ -38,8 +38,10 @@
                         android:src="@color/colorBackground"
                         app:layout_constraintBottom_toTopOf="@+id/clDetailBar"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
                         app:srcCompat="@color/colorAccent" />
 
                     <ImageView
@@ -78,6 +80,7 @@
                         android:layout_height="120dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent">
 
                         <TextView
@@ -106,29 +109,6 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/tvReleaseDate"
                             app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate" />
-
-                        <Button
-                            android:id="@+id/btnBuy"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:background="@drawable/rectangle_ripple_effect"
-                            android:drawableEnd="@drawable/ic_shopping_cart_24dp"
-                            android:fontFamily="sans-serif-light"
-                            android:paddingStart="0dp"
-                            android:paddingTop="0dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="0dp"
-                            android:text="@string/game_detail_buy_button"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="@android:color/black"
-                            app:layout_constraintBottom_toBottomOf="@+id/tvRating"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHeight_percent="0.27"
-                            app:layout_constraintHorizontal_bias="0.65"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="1"
-                            app:layout_constraintWidth_percent="0.27" />
 
                         <TextView
                             android:id="@+id/tvReleaseDate"
@@ -176,5 +156,27 @@
         android:id="@+id/include3"
         layout="@layout/content_game_detail"
         app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@android:color/white"
+        android:tint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_save_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="86dp"
+        android:backgroundTint="@android:color/white"
+        app:srcCompat="@drawable/ic_shopping_cart_24dp"
+        tools:layout_editor_absoluteX="340dp"
+        tools:layout_editor_absoluteY="-13dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

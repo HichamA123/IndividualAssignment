@@ -21,9 +21,10 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.example.individualassignment.Functions
 import com.example.individualassignment.R
-import com.example.individualassignment.fragments.viewmodels.UGFViewModel
 import com.example.individualassignment.model.ScreenShotSliderAdapter
 import com.example.individualassignment.model.Screenshot
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import kotlinx.android.synthetic.main.content_game_detail.*
@@ -36,7 +37,7 @@ import kotlinx.android.synthetic.main.fragment_game_detail.*
 class GameDetailFragment : Fragment() {
 
     private val args: GameDetailFragmentArgs by navArgs()
-    private lateinit var viewModel: UGFViewModel
+    private lateinit var viewModel: ViewModel
     private val screenshots = arrayListOf<Screenshot>()
     private val screenshotSliderAdapter = ScreenShotSliderAdapter(screenshots)
 
@@ -51,7 +52,23 @@ class GameDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setFab(view)
+
         initView()
+    }
+
+    private fun setFab(view: View) {
+        val save: FloatingActionButton = view.findViewById(R.id.save)
+        save.setOnClickListener {
+            //TODO save game
+            Snackbar.make(view, "Saved game.", Snackbar.LENGTH_LONG).show()
+        }
+        val buy: FloatingActionButton = view.findViewById(R.id.buy)
+        buy.setOnClickListener {
+            //TODO redirect to internet
+            Snackbar.make(view, "in dev.", Snackbar.LENGTH_LONG).show()
+        }
     }
 
     private fun initView() {
@@ -67,7 +84,7 @@ class GameDetailFragment : Fragment() {
     }
 
     private fun initViewModels() {
-        viewModel = ViewModelProviders.of(this).get(UGFViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
 
         //needed for description of game
         viewModel.getGameDetails(args.game.id)
