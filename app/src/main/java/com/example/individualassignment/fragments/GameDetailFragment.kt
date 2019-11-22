@@ -83,17 +83,20 @@ class GameDetailFragment : Fragment() {
         }
         val buy: FloatingActionButton = view.findViewById(R.id.buy)
         buy.setOnClickListener {
-            viewModel.detailedGame.observe(this, Observer {
-                if (it.website != "") {
-                    var url = it.website!!
-                    if (!url.startsWith("http://") && !url.startsWith("https://")) url = "http://" + url
-                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    startActivity(browserIntent)
-                } else {
-                    Snackbar.make(view, "Not available", Snackbar.LENGTH_LONG).show()
-                }
-            })
-
+            mainScope.launch {
+                buy.isEnabled = false
+                viewModel.detailedGame.observe(this@GameDetailFragment, Observer {
+                    if (it.website != "") {
+                        var url = it.website!!
+                        if (!url.startsWith("http://") && !url.startsWith("https://")) url = "http://" + url
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(browserIntent)
+                    } else {
+                        Snackbar.make(view, "Not available", Snackbar.LENGTH_LONG).show()
+                    }
+                })
+                buy.isEnabled = true
+            }
         }
     }
 

@@ -7,4 +7,11 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <!-- logo dimensions -->
+    <dimen name="logo_purple_ring">200dp</dimen>
+    <dimen name="logo_white_background">180dp</dimen>
+    <dimen name="logo_icon_height">120dp</dimen>
+    <dimen name="logo_icon_width">145dp</dimen>
+
 </resources>
