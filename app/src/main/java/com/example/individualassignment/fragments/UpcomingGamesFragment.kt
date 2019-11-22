@@ -12,11 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.individualassignment.Functions
 import com.example.individualassignment.R
+import com.example.individualassignment.gameRepository
+import com.example.individualassignment.mainScope
 import com.example.individualassignment.model.Game
 import com.example.individualassignment.model.GameAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_upcoming_games.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 /**
@@ -25,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_upcoming_games.*
 class UpcomingGamesFragment : Fragment() {
 
     private val games = arrayListOf<Game>()
-    private val gamesAdapter = GameAdapter(games) {game ->
+    private val gamesAdapter = GameAdapter(games) { game ->
         startDetailActivity(game)
     }
 
@@ -57,17 +62,27 @@ class UpcomingGamesFragment : Fragment() {
         val fab: FloatingActionButton = view.findViewById(R.id.save)
         fab.setOnClickListener {
 
-            if (gamesAdapter.selectMode.value == true) {
-                for (game in gamesAdapter.games) {
-                    if (game.selected) {
-                        //TODO save games
-                        println(game.name)
+            mainScope.launch {
+                fab.isEnabled = false
+                if (gamesAdapter.selectMode.value == true) {
+                    for (game in gamesAdapter.games) {
+                        if (game.selected) {
+                            game.selected = false
+                            withContext(Dispatchers.IO) {
+                                if (gameRepository.getGame(game.id).size == 0) {
+                                    gameRepository.insertGame(game)
+                                }
+                            }
+
+                        }
                     }
+                    gamesAdapter.deselectAll()
+                    Snackbar.make(view, "Saved", Snackbar.LENGTH_LONG).show()
+                } else {
+                    Snackbar.make(view, "Please select some games", Snackbar.LENGTH_LONG).show()
                 }
-                gamesAdapter.deselectAll()
-                Snackbar.make(view, "Saved selected game(s).", Snackbar.LENGTH_LONG).show()
-            } else {
-                Snackbar.make(view, "Please select some games you want to save.", Snackbar.LENGTH_LONG).show()
+
+                fab.isEnabled = true
             }
 
         }
@@ -130,7 +145,8 @@ class UpcomingGamesFragment : Fragment() {
     }
 
     private fun startDetailActivity(game: Game) {
-        val action = UpcomingGamesFragmentDirections.actionNavUpcomingGamesToGameDetailFragment(game)
+        val action =
+            UpcomingGamesFragmentDirections.actionNavUpcomingGamesToGameDetailFragment(game)
         findNavController().navigate(action)
     }
 

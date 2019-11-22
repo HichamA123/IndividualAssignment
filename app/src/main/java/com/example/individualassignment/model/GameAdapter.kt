@@ -27,6 +27,9 @@ class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
     var selectMode = MutableLiveData<Boolean>()
     var selectedHolders = arrayListOf<ViewHolder>()
 
+    //Buy-List should not be selectable
+    var adapterIsSelectable = true
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
 
@@ -50,6 +53,7 @@ class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
         if (game.name.length > holder.maxLengthOfTitle) holder.itemView.tvTitle.text = game.name.substring(0, holder.maxLengthOfTitle) + "..."
         else holder.itemView.tvTitle.text = game.name
         holder.itemView.tvReleaseDate.text = game.released.substring(0, 4)
+        holder.gameId = game.id
 
 
         //setting image based on if game is selected
@@ -58,9 +62,11 @@ class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
 
 
         holder.itemView.ivPoster.setOnLongClickListener {
-            selectMode.value = true
-            if(game.selected) deselectGame(game, holder, true)
-            else selectGame(game, holder)
+            if(adapterIsSelectable) {
+                selectMode.value = true
+                if(game.selected) deselectGame(game, holder, true)
+                else selectGame(game, holder)
+            }
             true
         }
 
@@ -111,14 +117,11 @@ class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
         selectMode.value = false
 
         games.forEach{ game ->
-            if (game.selected) {
-                selectedHolders.forEach { holder ->
-                    //TODO do proper check
-                    if(holder.itemView.tvTitle.text.substring(0,5) == game.name.substring(0,5)) {
-                        deselectGame(game, holder, false)
-                    }
+
+            selectedHolders.forEach { holder ->
+                if(holder.gameId == game.id) {
+                    deselectGame(game, holder, false)
                 }
-                game.selected = false
             }
         }
 
@@ -128,6 +131,7 @@ class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val maxLengthOfTitle = 17
+        var gameId = -1
 
         fun setPoster(game: Game) {
             Glide.with(context).load(game.background_image).listener(object: RequestListener<Drawable> {

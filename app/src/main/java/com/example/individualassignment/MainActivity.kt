@@ -14,6 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import com.example.individualassignment.database.GameRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+
+lateinit var gameRepository: GameRepository
+
+val mainScope = CoroutineScope(Dispatchers.Main)
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        gameRepository = GameRepository(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,7 +60,8 @@ class MainActivity : AppCompatActivity() {
                 false
             }
             R.id.action_search -> {
-                false
+                Snackbar.make(this.findViewById(android.R.id.content), "Search is not implemented yet.", Snackbar.LENGTH_LONG).show()
+                true
             }
             else -> return super.onOptionsItemSelected(item)
         }

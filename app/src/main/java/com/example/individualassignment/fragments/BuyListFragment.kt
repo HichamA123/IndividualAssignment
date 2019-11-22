@@ -14,10 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.individualassignment.Functions
 import com.example.individualassignment.R
+import com.example.individualassignment.gameRepository
+import com.example.individualassignment.mainScope
 import com.example.individualassignment.model.Game
 import com.example.individualassignment.model.GameAdapter
 import kotlinx.android.synthetic.main.fragment_buy_list.*
 import kotlinx.android.synthetic.main.fragment_upcoming_games.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * A simple [Fragment] subclass.
@@ -43,29 +48,27 @@ class BuyListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        initViewModels()
     }
 
     private fun initView() {
         rvBuyList.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        gamesAdapter.adapterIsSelectable = false
         rvBuyList.adapter = gamesAdapter
+        getGamesFromDatabase()
     }
 
-    private fun initViewModels() {
-        viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
-//
-//        viewModel.getGames(dates[0] + "," + dates[1], "-added")
-//
-//        viewModel.games.observe(this, Observer {
-//            games.clear()
-//            games.addAll(it)
-//            gamesAdapter.notifyDataSetChanged()
-//        })
+    private fun getGamesFromDatabase() {
+        mainScope.launch {
+            val games = withContext(Dispatchers.IO) {
+                gameRepository.getAllGames()
+            }
 
-//        viewModel.error.observe(this, Observer {
-//            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-//        })
+            this@BuyListFragment.games.clear()
+            this@BuyListFragment.games.addAll(games)
+            gamesAdapter.notifyDataSetChanged()
+        }
     }
+
 
 
     private fun startDetailActivity(game: Game) {

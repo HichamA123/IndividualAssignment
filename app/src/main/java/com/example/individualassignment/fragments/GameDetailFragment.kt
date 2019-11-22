@@ -1,9 +1,11 @@
 package com.example.individualassignment.fragments
 
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +23,8 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.example.individualassignment.Functions
 import com.example.individualassignment.R
+import com.example.individualassignment.gameRepository
+import com.example.individualassignment.mainScope
 import com.example.individualassignment.model.ScreenShotSliderAdapter
 import com.example.individualassignment.model.Screenshot
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,6 +33,9 @@ import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import kotlinx.android.synthetic.main.content_game_detail.*
 import kotlinx.android.synthetic.main.fragment_game_detail.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 /**
@@ -53,21 +60,40 @@ class GameDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setFab(view)
-
         initView()
+        setFab(view)
     }
 
     private fun setFab(view: View) {
         val save: FloatingActionButton = view.findViewById(R.id.save)
         save.setOnClickListener {
-            //TODO save game
-            Snackbar.make(view, "Saved game.", Snackbar.LENGTH_LONG).show()
+            mainScope.launch {
+                save.isEnabled = false
+
+                withContext(Dispatchers.IO) {
+                    if (gameRepository.getGame(args.game.id).size == 0) {
+                        gameRepository.insertGame(args.game)
+                    }
+                }
+
+                save.isEnabled = true
+                Snackbar.make(view, "Saved", Snackbar.LENGTH_LONG).show()
+            }
+
         }
         val buy: FloatingActionButton = view.findViewById(R.id.buy)
         buy.setOnClickListener {
-            //TODO redirect to internet
-            Snackbar.make(view, "in dev.", Snackbar.LENGTH_LONG).show()
+            viewModel.detailedGame.observe(this, Observer {
+                if (it.website != "") {
+                    var url = it.website!!
+                    if (!url.startsWith("http://") && !url.startsWith("https://")) url = "http://" + url
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(browserIntent)
+                } else {
+                    Snackbar.make(view, "Not available", Snackbar.LENGTH_LONG).show()
+                }
+            })
+
         }
     }
 
@@ -112,7 +138,7 @@ class GameDetailFragment : Fragment() {
         tvRating.text = args.game.rating.toFloat().toString()
         ratingBar.rating = args.game.rating.toFloat()
 
-        for (platform in args.game.platforms) hasPlatform(platform.platform?.name)
+        for (platform in args.game.platforms) hasPlatform(platform.platform.name)
     }
 
     private fun hasPlatform(name: String?) {
