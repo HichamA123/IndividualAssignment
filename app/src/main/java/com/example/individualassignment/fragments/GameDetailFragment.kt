@@ -182,7 +182,7 @@ class GameDetailFragment : Fragment() {
         Glide.with(this)
             .asBitmap()
             .load(args.game.background_image)
-            .into(object : CustomTarget<Bitmap>(1980, 1080) {
+            .into(object : CustomTarget<Bitmap>(2970, 1620) {
                 override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
                     val blurredBitmap = Functions().blur(resource, context, false)
                     ivBackground.setImageBitmap(blurredBitmap)
