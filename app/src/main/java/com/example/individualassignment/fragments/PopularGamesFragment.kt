@@ -68,12 +68,16 @@ class PopularGamesFragment : Fragment() {
                 if (gamesAdapter.selectMode.value == true) {
                     for (game in gamesAdapter.games) {
                         if (game.selected) {
+                            //deselect game so it's not selected when loaded in the buy-list
                             game.selected = false
+
                             withContext(Dispatchers.IO) {
                                 if (gameRepository.getGame(game.id).size == 0) {
                                     gameRepository.insertGame(game)
                                 }
                             }
+
+                            game.selected = true
 
                         }
                     }

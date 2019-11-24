@@ -53,7 +53,6 @@ class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
         if (game.name.length > holder.maxLengthOfTitle) holder.itemView.tvTitle.text = game.name.substring(0, holder.maxLengthOfTitle) + "..."
         else holder.itemView.tvTitle.text = game.name
         holder.itemView.tvReleaseDate.text = game.released.substring(0, 4)
-        holder.gameId = game.id
 
 
         //setting image based on if game is selected
@@ -118,11 +117,16 @@ class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
 
         games.forEach{ game ->
 
-            selectedHolders.forEach { holder ->
-                if(holder.gameId == game.id) {
-                    deselectGame(game, holder, false)
+            if (game.selected) {
+                selectedHolders.forEach { holder ->
+                    //todo fix proper check
+                    if(holder.itemView.tvTitle.text.substring(0,5) == game.name.substring(0,5)) {
+                        deselectGame(game, holder, false)
+                    }
                 }
+                game.selected = false
             }
+
         }
 
         selectedHolders.clear()
@@ -131,7 +135,6 @@ class GameAdapter(val games: List<Game>, private val onClick: (Game) -> Unit):
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val maxLengthOfTitle = 17
-        var gameId = -1
 
         fun setPoster(game: Game) {
             Glide.with(context).load(game.background_image).listener(object: RequestListener<Drawable> {
